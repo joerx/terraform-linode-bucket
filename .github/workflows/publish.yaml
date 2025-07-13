@@ -33,6 +33,6 @@ jobs:
           tar -czf $FILE --exclude out --exclude Makefile --exclude .terraform* .
           curl \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-            -H "Content-Type: $(file -b --mime-type $FILE)" \
+            -H "Content-Type: application/gzip" \
             --data-binary @$FILE \
             UPLOAD_URL?name=$(basename $FILE)"
