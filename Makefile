@@ -1,9 +1,15 @@
-PACKAGE_NAME ?= $(shell basename $(CURDIR))
-VERSION ?= $(shell git describe --tags --always --dirty)
 
-package:
-	mkdir -p out
-	tar czf out/$(PACKAGE_NAME)-$(VERSION).tar.gz --exclude=.git --exclude=out --exclude=Makefile .
+.PHONY: default
+default: test
 
-clean:
-	rm -rf out
+.terraform:
+	terraform init
+
+.PHONY: test
+test: .terraform
+	terraform init
+	terraform test
+
+.PHONY: check-fmt
+check-fmt:
+	find . -type f -name '*.tf' -or -name '*.tfvars' -or -name '*.tftest.hcl' | xargs -n1 terraform fmt -check -diff
