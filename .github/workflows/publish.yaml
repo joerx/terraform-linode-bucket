@@ -35,5 +35,5 @@ jobs:
           curl \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Content-Type: application/gzip" \
-            --data-binary @out/$(PACKAGE_NAME)-$(VERSION).tar.gz \
-            $UPLOAD_URL?name=$(PACKAGE_NAME)-$(VERSION).tar.gz
+            --data-binary @out/${PACKAGE_NAME}-${VERSION}.tar.gz \
+            $UPLOAD_URL?name=${PACKAGE_NAME}-${VERSION}.tar.gz
