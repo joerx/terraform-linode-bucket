@@ -17,8 +17,7 @@ jobs:
         id: get_release_url
         run: |
           set -e
-          echo https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref }}
-          # curl -v -f -L \
-          #   -H "Accept: application/vnd.github.v3+json" \
-          #   -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-          #   -s 
+          curl -vfs -L \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref }}
