@@ -17,4 +17,4 @@ check-fmt:
 	find . -type f -name '*.tf' -or -name '*.tfvars' -or -name '*.tftest.hcl' | xargs -n1 terraform fmt -check -diff
 
 release:
-	gh release create $(VERSION) --title "Release $(VERSION)" --target $(COMMIT) --generate-notes
+	gh release create $(VERSION) --title "Release $(VERSION)" --target release-flow --generate-notes
