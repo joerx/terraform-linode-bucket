@@ -20,4 +20,4 @@ jobs:
           curl -v -f -L \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-            -s https://api.github.com/repos/{{ github.repository}} /releases/tags/{{ github.ref }}
+            -s https://api.github.com/repos/{{ github.repository }}/releases/tags/{{ github.ref }}
