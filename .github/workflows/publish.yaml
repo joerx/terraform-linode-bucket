@@ -28,12 +28,11 @@ jobs:
       - name: Upload module
         run: |
           set -e
-          export PACKAGE_NAME=$(basename ${{ github.repository }})
-          export VERSION=${{ github.ref_name }}
+          export PACKAGE_FILE=$(basename ${{ github.repository }}).tar.gz
           make package
           
           curl \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Content-Type: application/gzip" \
-            --data-binary @out/${PACKAGE_NAME}-${VERSION}.tar.gz \
-            $UPLOAD_URL?name=${PACKAGE_NAME}-${VERSION}.tar.gz
+            --data-binary @out/${PACKAGE_FILE} \
+            $UPLOAD_URL?name=${PACKAGE_FILE}
