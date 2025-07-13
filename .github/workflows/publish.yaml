@@ -28,11 +28,12 @@ jobs:
       - name: Upload module
         run: |
           set -e
-          FILE=out/terraform-linode-bucket-${{ github.ref_name }}.tar.gz
-          mkdir -p out
-          tar -czf $FILE --exclude out --exclude Makefile --exclude .terraform* .
+          export PACKAGE_NAME=$(basename ${{ github.repository }})
+          export VERSION=${{ github.ref_name }}
+          make package
+          
           curl \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Content-Type: application/gzip" \
-            --data-binary @$FILE \
-            $UPLOAD_URL?name=$(basename $FILE)
+            --data-binary @out/$(PACKAGE_NAME)-$(VERSION).tar.gz \
+            $UPLOAD_URL?name=$(PACKAGE_NAME)-$(VERSION).tar.gz
