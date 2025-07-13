@@ -35,4 +35,4 @@ jobs:
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Content-Type: application/gzip" \
             --data-binary @$FILE \
-            UPLOAD_URL?name=$(basename $FILE)"
+            $UPLOAD_URL?name=$(basename $FILE)
