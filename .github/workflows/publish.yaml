@@ -1,0 +1,23 @@
+name: test
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  terraform_test:
+    name: Terraform Test
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get release url
+        id: get_release_url
+        run: |
+          set -e
+          curl -f -L \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -s https://api.github.com/repos/{{ github.repository}} /releases/tags/{{ github.ref }}
