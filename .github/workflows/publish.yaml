@@ -20,7 +20,19 @@ jobs:
         id: get_release_url
         run: |
           set -e
-          curl -vfs -L \
+          UPLOAD_URL=$(curl -fs -L \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-            https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }}
+            https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }} | jq -r '.upload_url' | sed -e 's/{?name,label}//')
+          echo "UPLOAD_URL=${UPLOAD_URL}" >> $GITHUB_ENV
+      - name: Upload module
+        run: |
+          set -e
+          FILE=out/terraform-linode-bucket-${{ github.ref_name }}.tar.gz
+          mkdir -p out
+          tar -czf $FILE --exclude out --exclude Makefile --exclude .terraform* .
+          curl \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Content-Type: $(file -b --mime-type $FILE)" \
+            --data-binary @$FILE \
+            UPLOAD_URL?name=$(basename $FILE)"
