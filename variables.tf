@@ -16,9 +16,7 @@ variable "service" {
 variable "versioning" {
   description = "Enable versioning for the bucket"
   type = object({
-    enabled           = bool
-    access_key_id     = optional(string)
-    secret_access_key = optional(string)
+    enabled = bool
   })
   default = {
     enabled = false
