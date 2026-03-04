@@ -10,10 +10,29 @@ Due to [this issue](https://github.com/hashicorp/terraform/issues/36704) affecti
 
 ```c
 module "terraform_backend" {
-  source  = "https://github.com/joerx/terraform-linode-bucket/releases/download/<VERSION>/terraform-linode-bucket.tar.gz"
-  stage   = "tst"
-  service = "my-bucket"
-  region  = "eu-central"
+  source = "https://github.com/joerx/terraform-linode-bucket/releases/download/<VERSION>/terraform-linode-bucket.tar.gz"
+  env    = "tst"
+  label  = "my-bucket"
+  region = "eu-central"
+}
+```
+
+### Versioning
+
+- To enable versioning make sure `obj_use_temp_keys` is set to `true` in your provider config
+
+```hcl
+provider "linode" {
+  obj_use_temp_keys = true
+}
+
+module "bucket" {
+  source = "https://github.com/joerx/terraform-linode-bucket/releases/download/<VERSION>/terraform-linode-bucket.tar.gz"
+  env    = "dev"
+  region = "eu-central"
+  label  = "example"
+
+  versioning_enabled = true
 }
 ```
 
