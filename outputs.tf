@@ -7,10 +7,10 @@ output "endpoint" {
 }
 
 output "access_key" {
-  value = local.access_key_enabled ? linode_object_storage_key.k[0].access_key : null
+  value = var.access_key_enabled ? linode_object_storage_key.k[0].access_key : null
 }
 
 output "secret_key" {
   sensitive = true
-  value     = local.access_key_enabled ? linode_object_storage_key.k[0].secret_key : null
+  value     = var.access_key_enabled ? linode_object_storage_key.k[0].secret_key : null
 }
