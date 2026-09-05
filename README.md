@@ -1,5 +1,8 @@
 # terraform-linode-bucket
 
+> [!WARNING]
+> This repository is **deprecated**, the project has moved to https://github.com/zuse-cc/terraform-linode-bucket.
+
 Terraform module to provision object storage buckets in [Akamai Cloud](https://www.linode.com/) (formerly known as Linode). Uses the [Linode Terraform Provider](https://registry.terraform.io/providers/linode/linode/latest/docs).
 
 ## Terraform Versions
